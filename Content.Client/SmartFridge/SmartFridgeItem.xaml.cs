@@ -9,9 +9,7 @@ namespace Content.Client.SmartFridge;
 [GenerateTypedNameReferences]
 public sealed partial class SmartFridgeItem : BoxContainer
 {
-    // Monolith start
     public Action? RemoveButtonPressed;
-    // Monolith end
 
     public SmartFridgeItem(EntityUid uid, string text)
     {
@@ -20,11 +18,9 @@ public sealed partial class SmartFridgeItem : BoxContainer
         EntityView.SetEntity(uid);
         NameLabel.Text = text;
 
-        // Monolith start
         RemoveButton.OnPressed += _ => RemoveButtonPressed?.Invoke();
 
         if (uid.IsValid())
             RemoveButton.Visible = false;
-        // Monolith end
     }
 }

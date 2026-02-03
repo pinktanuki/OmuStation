@@ -10,7 +10,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.SmartFridge;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
-[Access(typeof(SmartFridgeSystem))]
+[Access(typeof(SharedSmartFridgeSystem))]
 public sealed partial class SmartFridgeComponent : Component
 {
     /// <summary>
@@ -47,7 +47,7 @@ public sealed partial class SmartFridgeComponent : Component
     /// A mapping of smart fridge entries to the actual contained contents
     /// </summary>
     [DataField, AutoNetworkedField]
-    [Access(typeof(SmartFridgeSystem), Other = AccessPermissions.ReadExecute)]
+    [Access(typeof(SharedSmartFridgeSystem), Other = AccessPermissions.ReadExecute)]
     public Dictionary<SmartFridgeEntry, HashSet<NetEntity>> ContainedEntries = new();
 
     // Start of Omustation
@@ -85,8 +85,12 @@ public sealed partial class SmartFridgeComponent : Component
     public SoundSpecifier SoundDeny = new SoundCollectionSpecifier("VendingDeny");
 }
 
+/// <summary>
+/// A single entry in the smart fridge UI.
+/// May contain multiple items of the same type.
+/// </summary>
 [Serializable, NetSerializable, DataRecord]
-public record struct SmartFridgeEntry
+public partial record struct SmartFridgeEntry
 {
     public string Name;
 
@@ -102,13 +106,15 @@ public enum SmartFridgeUiKey : byte
     Key,
 }
 
+/// <summary>
+/// Send by the client when trying to dispense an item inside the fridge.
+/// </summary>
 [Serializable, NetSerializable]
 public sealed class SmartFridgeDispenseItemMessage(SmartFridgeEntry entry) : BoundUserInterfaceMessage
 {
     public SmartFridgeEntry Entry = entry;
 }
 
-// Monolith start
 /// <summary>
 /// Send by the client when trying to remove an empty smart fridge entry from the list of items in the UI.
 /// </summary>
@@ -117,4 +123,3 @@ public sealed class SmartFridgeRemoveEntryMessage(SmartFridgeEntry entry) : Boun
 {
     public SmartFridgeEntry Entry = entry;
 }
-// Monolith end
