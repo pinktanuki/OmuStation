@@ -2568,3 +2568,11 @@ Entries:
         dispos to med please thanks
   id: 324
   time: '2026-03-14T02:12:26.0000000+00:00'
+- author: raincall
+  changes:
+    - type: Tweak
+      message: >-
+        Fish (that you fish up with a fishing rod) are items now and they dont
+        butcher into organs
+  id: 325
+  time: '2026-03-14T06:04:04.0000000+00:00'
