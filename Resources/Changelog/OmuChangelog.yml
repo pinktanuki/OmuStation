@@ -2953,3 +2953,9 @@ Entries:
       message: IPCs now take ion damage from EMPs
   id: 377
   time: '2026-03-29T19:20:16.0000000+00:00'
+- author: CliveOcelot
+  changes:
+    - type: Add
+      message: Added Shipyard functionality, to be mapped at a later date.
+  id: 378
+  time: '2026-03-29T19:21:25.0000000+00:00'
