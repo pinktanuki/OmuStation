@@ -2977,3 +2977,11 @@ Entries:
       message: Changed T8 Consistency's sprites to be less gray and more silver.
   id: 381
   time: '2026-03-30T05:32:14.0000000+00:00'
+- author: ANorthAmerican
+  changes:
+    - type: Add
+      message: >-
+        Added winter coats for the Nanotrasen Representative and Administrative
+        Assistant.
+  id: 382
+  time: '2026-03-30T05:37:28.0000000+00:00'
