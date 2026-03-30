@@ -3001,3 +3001,9 @@ Entries:
       message: Changes the Contractor Baton in the uplink to be 50TC instead of 35TC
   id: 383
   time: '2026-03-30T07:29:33.0000000+00:00'
+- author: ArtemisYK
+  changes:
+    - type: Tweak
+      message: Tweaked the amount of TC Warops provides nukies
+  id: 384
+  time: '2026-03-30T07:30:39.0000000+00:00'
