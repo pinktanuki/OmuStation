@@ -1639,7 +1639,6 @@
   minLimit: 1 # DV
   maxLimit: 1 # DV
   loadouts:
-  - SalvageJumpsuit # DV
   - SalvageJumpskirt # DV
   - SalvageSpecialistJumpsuit
   - SalvageSpecialistJumpskirt
