@@ -285,7 +285,7 @@
   components:
   - type: Sprite
     sprite: _Omu/Clothing/Head/mantle.rsi
-    state: icon-paramedic
+    state: icon-medical
   - type: Clothing
     sprite: _Omu/Clothing/Head/mantle.rsi
     clothingVisuals:
@@ -306,6 +306,7 @@
     - type: ShowDiseaseIcons
     - type: FlashImmunity
     - type: FlashSoundSuppression
+    - type: SolutionScanner
 
 # medical mantle with chemical analysis goggles for chemists.
 - type: entity
@@ -316,7 +317,7 @@
   components:
   - type: Sprite
     sprite: _Omu/Clothing/Head/mantle.rsi
-    state: icon-paramedic
+    state: icon-medical
   - type: Clothing
     sprite: _Omu/Clothing/Head/mantle.rsi
     clothingVisuals:
@@ -332,9 +333,6 @@
       isEquipment: true
       color: "#CCFFCC"
     - type: SolutionScanner
-  - type: Tag
-    tags:
-    - HudChemistry #There was some change to chem googles for Omu, that requires me to add the chem goggle tag. No fucking clue why, I hate it.
 
 # Mantle for the BSO
 - type: entity
