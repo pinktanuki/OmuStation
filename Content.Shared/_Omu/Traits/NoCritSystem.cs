@@ -1,5 +1,3 @@
-using Content.Shared._Omu.Traits;
-using Content.Shared.Humanoid;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
