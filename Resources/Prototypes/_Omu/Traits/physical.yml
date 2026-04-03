@@ -77,15 +77,15 @@
         Warden: ClothingCyberneticBeastMantleSecurity
         Sergeant: ClothingCyberneticBeastMantleSecurity
         # med mantle for doctors (and brigmedic, actually corpsman)
-        Chemist: ClothingCyberneticBeastMantleMedical
+        Chemist: ClothingCyberneticBeastMantleMedicalChemist
         MedicalDoctor: ClothingCyberneticBeastMantleMedical
         MedicalIntern: ClothingCyberneticBeastMantleMedical
         Paramedic: ClothingCyberneticBeastMantleMedicalParamedic # paramedic mantle variant with internals
         Brigmedic: ClothingCyberneticBeastMantleCorpsman
         # tossup of mantles for command.
         Captain: ClothingCyberneticBeastMantleCommand
-        ChiefEngineer: ClothingCyberneticBeastMantleWorkAtmospherics
-        ChiefMedicalOfficer: ClothingCyberneticBeastMantleMedical
+        ChiefEngineer: ClothingCyberneticBeastMantleWorkChiefEngineering
+        ChiefMedicalOfficer: ClothingCyberneticBeastMantleMedicalCMO
         HeadOfPersonnel: ClothingCyberneticBeastMantleCommand
         HeadOfSecurity: ClothingCyberneticBeastMantleSecurity
         Quartermaster: ClothingCyberneticBeastMantleSupply
