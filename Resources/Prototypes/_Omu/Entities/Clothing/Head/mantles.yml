@@ -176,7 +176,7 @@
     lowPressureMultiplier: 1000
   - type: Armor #Copied directly from the CE hardsuit helmet
     coverage:
-  - Head
+    - Head
     modifiers:
       coefficients:
         Blunt: 0.8
