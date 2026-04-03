@@ -178,10 +178,10 @@
       coolingCoefficient: 0.2
     - type: EyeProtection
     - type: FireProtection
-    - type: PressureProtection #Copied directly from the CE hardsuit helmet
-    highPressureMultiplier: 0.08
-    lowPressureMultiplier: 1000
       reduction: 0.2
+    - type: PressureProtection #Copied directly from the CE hardsuit helmet
+      highPressureMultiplier: 0.08
+      lowPressureMultiplier: 1000
     - type: Armor #Copied directly from the CE hardsuit helmet
       modifiers:
         coefficients:
