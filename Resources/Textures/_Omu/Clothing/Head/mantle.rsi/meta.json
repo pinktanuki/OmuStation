@@ -53,6 +53,9 @@
       "name": "icon-centralcommand"
     },
     {
+      "name": "icon-hos"
+    },
+    {
       "name": "helmet",
       "directions": 4
     },
@@ -109,6 +112,10 @@
       "directions": 4
     },
     {
+      "name": "helmet-hos",
+      "directions": 4
+    },
+    {
       "name": "eyes",
       "directions": 4
     },
@@ -158,6 +165,10 @@
     },
     {
       "name": "eyes-chem",
+      "directions": 4
+    },
+    {
+      "name": "eyes-hos",
       "directions": 4
     },
     {
