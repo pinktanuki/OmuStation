@@ -16,7 +16,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Shared.DoAfter;
+using Content.Shared.DoAfter; // Omustation
 using Content.Shared.Interaction;
 using Content.Shared.Verbs;
 using Content.Shared.Weapons.Ranged.Components;
@@ -74,6 +74,7 @@ public partial class SharedGunSystem
         if (args.Handled)
             return;
 
+        // Start of Omustation change
         // Ammo boxes load one round at a time with a delay, like shotgun loading.
         if (TryComp<BallisticAmmoProviderComponent>(args.Used, out var ballisticComp) && ballisticComp.MayTransfer)
         {
@@ -94,12 +95,12 @@ public partial class SharedGunSystem
                 NeedHand = true,
             });
             return;
-        }
+        } // End of Omustation change
 
         if (TryRevolverInsert(uid, component, args.Used, args.User))
             args.Handled = true;
     }
-
+    // Start of Omustation change
     private void OnRevolverAmmoBoxFillDoAfter(EntityUid revolverUid, RevolverAmmoProviderComponent component, RevolverAmmoBoxFillDoAfterEvent args)
     {
         if (args.Handled || args.Cancelled)
@@ -161,7 +162,7 @@ public partial class SharedGunSystem
         Popup(Loc.GetString("gun-revolver-insert"), revolverUid, args.User);
 
         args.Repeat = GetRevolverCount(component) < component.Capacity && GetBallisticShots(ballisticComp) > 0;
-    }
+    } // End of Omustation change
 
     private void OnRevolverGetState(EntityUid uid, RevolverAmmoProviderComponent component, ref ComponentGetState args)
     {
@@ -575,6 +576,7 @@ public partial class SharedGunSystem
     }
 }
 
+// Start of Omustation change
 /// <summary>
 /// DoAfter event for loading a revolver one round at a time from an ammo box.
 /// </summary>
@@ -582,3 +584,4 @@ public partial class SharedGunSystem
 public sealed partial class RevolverAmmoBoxFillDoAfterEvent : SimpleDoAfterEvent
 {
 }
+// End of Omustation change
