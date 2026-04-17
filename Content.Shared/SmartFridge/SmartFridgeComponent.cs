@@ -1,5 +1,4 @@
 // Portions taken from Monolith (https://github.com/monolith-station/monolith), credit tonotom1.
-using Content.Shared.Access; // Omustation
 using Content.Shared.Whitelist;
 using Robust.Shared.Analyzers;
 using Robust.Shared.Audio;
@@ -55,19 +54,9 @@ public sealed partial class SmartFridgeComponent : Component
     /// <summary>
     /// Whether access checking is enforced. When false, anyone can insert and dispense items.
     /// When true, the AccessReader component determines who is allowed.
-    /// Automatically set to true if <see cref="Access"/> is configured.
     /// </summary>
     [DataField, AutoNetworkedField]
     public bool RequireAccess = false;
-
-    /// <summary>
-    /// Access levels required to use this fridge. Setting this automatically enables access checking.
-    /// Supports the same format as AccessReader: each inner list is an access group where all tags must match,
-    /// and only one group needs to match overall.
-    /// Example: <c>access: [["Botany"]]</c> or <c>access: [["Medical"], ["Command"]]</c>
-    /// </summary>
-    [DataField]
-    public List<HashSet<ProtoId<AccessLevelPrototype>>>? Access;
     // End of Omustation
 
     /// <summary>

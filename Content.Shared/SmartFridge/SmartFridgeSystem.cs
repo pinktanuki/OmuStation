@@ -31,7 +31,6 @@ public sealed class SmartFridgeSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<SmartFridgeComponent, ComponentStartup>(OnStartup); // Omustation
         SubscribeLocalEvent<SmartFridgeComponent, InteractUsingEvent>(OnInteractUsing);
         SubscribeLocalEvent<SmartFridgeComponent, EntRemovedFromContainerMessage>(OnItemRemoved);
 
@@ -49,25 +48,6 @@ public sealed class SmartFridgeSystem : EntitySystem
                 sub.Event<SmartFridgeRemoveEntryMessage>(OnRemoveEntry); // Monolith
             });
     }
-
-    // Start of Omustation
-    /// <summary>
-    /// Applies YAML-defined access configuration to the fridge's AccessReader on startup.
-    /// If no access is defined, the fridge remains open to all.
-    /// </summary>
-    private void OnStartup(Entity<SmartFridgeComponent> ent, ref ComponentStartup args)
-    {
-        if (ent.Comp.Access == null || ent.Comp.Access.Count == 0)
-            return;
-
-        ent.Comp.RequireAccess = true;
-
-        if (!TryComp<AccessReaderComponent>(ent, out var reader))
-            return;
-
-        _accessReader.SetAccesses((ent.Owner, reader), ent.Comp.Access);
-    }
-    // End of Omustation
 
     private bool DoInsert(Entity<SmartFridgeComponent> ent, EntityUid user, IEnumerable<EntityUid> usedItems, bool playSound)
     {
