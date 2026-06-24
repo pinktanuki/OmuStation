@@ -1,0 +1,23 @@
+# BEGIN EINSTEIN ENGINES - Harpy Wings (EE #545)
+- type: entity
+  name: harpy wings
+  parent: FoodMealBase
+  id: FoodHarpyWings
+  description: It's a bit stringy.
+  components:
+  - type: FlavorProfile
+    flavors:
+      - chicken
+  - type: Sprite
+    sprite: _EinsteinEngines/Objects/Consumable/Food/meals.rsi
+    state: harpywings
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 25
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 13
+        - ReagentId: Protein
+          Quantity: 7
+# END EINSTEIN ENGINES
