@@ -1,4 +1,3 @@
-# BEGIN EINSTEIN ENGINES - Kebabs (EE #3436)
 - type: entity
   name: double rat kebab
   parent: FoodKebabSkewer
@@ -51,4 +50,3 @@
     key: Skewer
     maxLayers: 4
     startPosition: -0.27, -0.19
-# END EINSTEIN ENGINES
