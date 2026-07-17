@@ -15753,7 +15753,7 @@ entities:
   - uid: 4
     components:
     - type: MetaData
-      name: grid
+      name: Ghost Bar #Omu
     - type: Transform
       pos: -4.276839,-7.193907
       parent: 1
