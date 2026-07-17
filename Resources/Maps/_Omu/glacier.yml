@@ -118,6 +118,7 @@ entities:
   - uid: 2
     components:
     - type: MetaData
+      name: Glacier
     - type: Transform
       parent: 1
     - type: MapGrid
@@ -11566,7 +11567,7 @@ entities:
   - uid: 18541
     components:
     - type: MetaData
-      name: grid
+      name: Debris
     - type: Transform
       pos: -26.748072,151.35545
       parent: 1

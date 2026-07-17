@@ -9492,7 +9492,7 @@ entities:
   - uid: 25272
     components:
     - type: MetaData
-      name: grid
+      name: Debris
     - type: Transform
       pos: -63.54326,28.933163
       parent: 1

@@ -33,7 +33,7 @@ entities:
   - uid: 2
     components:
     - type: MetaData
-      name: grid
+      name: Abductor Shuttle
     - type: Transform
       pos: -0.5520833,-0.5416667
       parent: 1
