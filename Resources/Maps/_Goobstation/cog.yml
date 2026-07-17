@@ -76,7 +76,7 @@ entities:
   - uid: 2
     components:
     - type: MetaData
-      name: grid
+      name: Cog #Omu
     - type: Transform
       pos: 1.09375,-1.3229165
       parent: 1

@@ -9499,7 +9499,7 @@ entities:
   - uid: 25060
     components:
     - type: MetaData
-      name: grid
+      name: Debris #Omu
     - type: Transform
       pos: -63.54326,28.933163
       parent: 1
