@@ -226,9 +226,13 @@ namespace Content.Server.Atmos.EntitySystems
             var heatCapacitySharerToThis = 0f;
             var movedMoles = 0f;
             var absMovedMoles = 0f;
+            var mask = receiver.GetPresenceMask() | sharer.GetPresenceMask();
 
             for(var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
             {
+                if ((mask & (1UL << i)) == 0)
+                    continue;
+
                 var thisValue = receiver.Moles[i];
                 var sharerValue = sharer.Moles[i];
                 var delta = (thisValue - sharerValue) / (atmosAdjacentTurfs + 1);

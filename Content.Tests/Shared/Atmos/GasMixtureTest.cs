@@ -32,4 +32,17 @@ public sealed class GasMixtureTest
 
         Assert.That(mixture, Is.EquivalentTo(expectedList));
     }
+
+    [Test]
+    public void TestGetPresenceMask()
+    {
+        var mixture = new GasMixture();
+        mixture.SetMoles(Gas.Oxygen, 20);
+        mixture.SetMoles(Gas.Nitrogen, 10);
+        mixture.SetMoles(Gas.Plasma, Atmospherics.GasMinMoles / 2); // below the presence threshold
+
+        var expectedMask = (1UL << (int)Gas.Oxygen) | (1UL << (int)Gas.Nitrogen);
+
+        Assert.That(mixture.GetPresenceMask(), Is.EqualTo(expectedMask));
+    }
 }

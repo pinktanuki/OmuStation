@@ -194,6 +194,24 @@ namespace Content.Shared.Atmos
             AdjustMoles((int)gas, moles);
         }
 
+        /// <summary>
+        ///     Bitmask of which gas slots currently hold at least <see cref="Atmospherics.GasMinMoles"/>
+        ///     moles, i.e. which gases are "present" rather than zero/floating-point noise. Computed fresh
+        ///     each call (not cached) so it can never desync from <see cref="Moles"/> after a mutation.
+        ///     Intended for hot loops to skip gas slots that are absent from a mixture entirely.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ulong GetPresenceMask()
+        {
+            ulong mask = 0;
+            for (var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
+            {
+                if (Moles[i] >= Atmospherics.GasMinMoles)
+                    mask |= 1UL << i;
+            }
+            return mask;
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public GasMixture Remove(float amount)
         {

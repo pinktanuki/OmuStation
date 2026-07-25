@@ -435,9 +435,13 @@ namespace Content.Server.Atmos.EntitySystems
         public GasCompareResult CompareExchange(GasMixture sample, GasMixture otherSample)
         {
             var moles = 0f;
+            var mask = sample.GetPresenceMask() | otherSample.GetPresenceMask();
 
             for(var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
             {
+                if ((mask & (1UL << i)) == 0)
+                    continue;
+
                 var gasMoles = sample.Moles[i];
                 var delta = MathF.Abs(gasMoles - otherSample.Moles[i]);
                 if (delta > Atmospherics.MinimumMolesDeltaToMove && (delta > gasMoles * Atmospherics.MinimumAirRatioToMove))
@@ -464,12 +468,19 @@ namespace Content.Server.Atmos.EntitySystems
             var reaction = ReactionResult.NoReaction;
             var temperature = mixture.Temperature;
             var energy = GetThermalEnergy(mixture);
+            var presenceMask = mixture.GetPresenceMask();
 
             foreach (var prototype in GasReactions)
             {
                 if (energy < prototype.MinimumEnergyRequirement ||
                     temperature < prototype.MinimumTemperatureRequirement ||
                     temperature > prototype.MaximumTemperatureRequirement)
+                    continue;
+
+                // Fast reject: if this reaction requires a gas the mixture doesn't have at all
+                // (below GasMinMoles), it can't possibly meet that requirement's threshold, so skip
+                // the precise per-gas loop below entirely.
+                if ((prototype.RequiredGasMask & ~presenceMask) != 0)
                     continue;
 
                 var doReaction = true;

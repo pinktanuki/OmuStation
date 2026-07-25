@@ -27,11 +27,12 @@ using Content.Server.Atmos.EntitySystems;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Reactions;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 
 namespace Content.Server.Atmos.Reactions
 {
     [Prototype]
-    public sealed partial class GasReactionPrototype : IPrototype
+    public sealed partial class GasReactionPrototype : IPrototype, ISerializationHooks
     {
         [ViewVariables]
         [IdDataField]
@@ -42,6 +43,23 @@ namespace Content.Server.Atmos.Reactions
         /// </summary>
         [DataField("minimumRequirements")]
         public float[] MinimumRequirements { get; private set; } = new float[Atmospherics.MaxNumberOfGases];
+
+        /// <summary>
+        ///     Bitmask of gas slots this reaction has a nonzero <see cref="MinimumRequirements"/> for.
+        ///     Computed once after YAML deserialization; used to cheaply reject a mixture that's missing
+        ///     a required gas entirely, before running the precise per-gas requirement check.
+        /// </summary>
+        public ulong RequiredGasMask { get; private set; }
+
+        void ISerializationHooks.AfterDeserialization()
+        {
+            RequiredGasMask = 0;
+            for (var i = 0; i < MinimumRequirements.Length; i++)
+            {
+                if (MinimumRequirements[i] > 0)
+                    RequiredGasMask |= 1UL << i;
+            }
+        }
 
         /// <summary>
         ///     Maximum temperature requirement.

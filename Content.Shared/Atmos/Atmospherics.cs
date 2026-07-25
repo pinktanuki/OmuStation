@@ -329,6 +329,8 @@ namespace Content.Shared.Atmos
         ///     Maximum number of gas prototypes that can be loaded. Array capacity is fixed at this size
         ///     because gas-count-sized arrays are default-constructed before prototypes finish loading.
         ///     Bump this if you need more than this many total gases across base game + all enabled forks.
+        ///     Must stay &lt;= 64: <see cref="GasMixture.GetPresenceMask"/> and the gas reaction
+        ///     prototype's RequiredGasMask pack one bit per gas into a <see langword="ulong"/>.
         /// </summary>
         public const int MaxNumberOfGases = 32;
 
