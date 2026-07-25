@@ -282,11 +282,14 @@ namespace Content.Shared.Atmos
         ///     Dictionary of chemical abbreviations for <see cref="Gas"/>
         /// </summary>
         /// <remarks>
-        ///     Lazy so that merely touching another static member of <see cref="Atmospherics"/> (which
-        ///     runs this type's static constructor) doesn't eagerly call <see cref="Loc"/>, which
+        ///     Lazily built (not a <see cref="Lazy{T}"/> — that type isn't on the content sandbox's
+        ///     type allowlist) so that merely touching another static member of <see cref="Atmospherics"/>
+        ///     (which runs this type's static constructor) doesn't eagerly call <see cref="Loc"/>, which
         ///     requires IoC to be set up (e.g. in bare unit tests without a game/IoC bootstrap).
         /// </remarks>
-        private static readonly Lazy<Dictionary<Gas, string>> LazyGasAbbreviations = new(() => new Dictionary<Gas, string>()
+        private static Dictionary<Gas, string>? _gasAbbreviations;
+
+        public static Dictionary<Gas, string> GasAbbreviations => _gasAbbreviations ??= new Dictionary<Gas, string>()
         {
             [Gas.Ammonia] = Loc.GetString("gas-ammonia-abbreviation"),
             [Gas.CarbonDioxide] = Loc.GetString("gas-carbon-dioxide-abbreviation"),
@@ -297,9 +300,7 @@ namespace Content.Shared.Atmos
             [Gas.Plasma] = Loc.GetString("gas-plasma-abbreviation"),
             [Gas.Tritium] = Loc.GetString("gas-tritium-abbreviation"),
             [Gas.WaterVapor] = Loc.GetString("gas-water-vapor-abbreviation"),
-        });
-
-        public static Dictionary<Gas, string> GasAbbreviations => LazyGasAbbreviations.Value;
+        };
 
         #region Excited Groups
 
