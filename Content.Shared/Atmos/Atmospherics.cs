@@ -281,7 +281,12 @@ namespace Content.Shared.Atmos
         /// <summary>
         ///     Dictionary of chemical abbreviations for <see cref="Gas"/>
         /// </summary>
-        public static Dictionary<Gas, string> GasAbbreviations = new Dictionary<Gas, string>()
+        /// <remarks>
+        ///     Lazy so that merely touching another static member of <see cref="Atmospherics"/> (which
+        ///     runs this type's static constructor) doesn't eagerly call <see cref="Loc"/>, which
+        ///     requires IoC to be set up (e.g. in bare unit tests without a game/IoC bootstrap).
+        /// </remarks>
+        private static readonly Lazy<Dictionary<Gas, string>> LazyGasAbbreviations = new(() => new Dictionary<Gas, string>()
         {
             [Gas.Ammonia] = Loc.GetString("gas-ammonia-abbreviation"),
             [Gas.CarbonDioxide] = Loc.GetString("gas-carbon-dioxide-abbreviation"),
@@ -292,7 +297,9 @@ namespace Content.Shared.Atmos
             [Gas.Plasma] = Loc.GetString("gas-plasma-abbreviation"),
             [Gas.Tritium] = Loc.GetString("gas-tritium-abbreviation"),
             [Gas.WaterVapor] = Loc.GetString("gas-water-vapor-abbreviation"),
-        };
+        });
+
+        public static Dictionary<Gas, string> GasAbbreviations => LazyGasAbbreviations.Value;
 
         #region Excited Groups
 
@@ -319,15 +326,25 @@ namespace Content.Shared.Atmos
         public const int MonstermosTileLimit = 200;
 
         /// <summary>
-        ///     Total number of gases. Increase this if you want to add more!
+        ///     Maximum number of gas prototypes that can be loaded. Array capacity is fixed at this size
+        ///     because gas-count-sized arrays are default-constructed before prototypes finish loading.
+        ///     Bump this if you need more than this many total gases across base game + all enabled forks.
         /// </summary>
-        public const int TotalNumberOfGases = 13; // Assmos - /tg/ gases
+        public const int MaxNumberOfGases = 32;
 
         /// <summary>
         ///     This is the actual length of the gases arrays in mixtures.
-        ///     Set to the closest multiple of 4 relative to <see cref="TotalNumberOfGases"/> for SIMD reasons.
+        ///     Set to the closest multiple of 4 relative to <see cref="MaxNumberOfGases"/> for SIMD reasons.
         /// </summary>
-        public const int AdjustedNumberOfGases = ((TotalNumberOfGases + 3) / 4) * 4;
+        public const int AdjustedNumberOfGases = ((MaxNumberOfGases + 3) / 4) * 4;
+
+        /// <summary>
+        ///     Actual number of GasPrototype entries loaded from YAML. Set once by
+        ///     SharedAtmosphereSystem.Initialize() after prototypes finish loading. Defaults to
+        ///     MaxNumberOfGases so anything that reads it before that point still gets array bounds
+        ///     that are safe/self-consistent rather than zero.
+        /// </summary>
+        public static int TotalNumberOfGases { get; internal set; } = MaxNumberOfGases;
 
         /// <summary>
         ///     Amount of heat released per mole of burnt hydrogen or tritium (hydrogen isotope)

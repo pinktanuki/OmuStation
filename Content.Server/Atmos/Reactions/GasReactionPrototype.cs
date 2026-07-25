@@ -41,7 +41,7 @@ namespace Content.Server.Atmos.Reactions
         ///     Minimum gas amount requirements.
         /// </summary>
         [DataField("minimumRequirements")]
-        public float[] MinimumRequirements { get; private set; } = new float[Atmospherics.TotalNumberOfGases];
+        public float[] MinimumRequirements { get; private set; } = new float[Atmospherics.MaxNumberOfGases];
 
         /// <summary>
         ///     Maximum temperature requirement.

@@ -30,7 +30,7 @@ namespace Content.Server.Atmos.EntitySystems
         [Dependency] private readonly IPrototypeManager _protoMan = default!;
 
         private GasReactionPrototype[] _gasReactions = Array.Empty<GasReactionPrototype>();
-        private float[] _gasSpecificHeats = new float[Atmospherics.TotalNumberOfGases];
+        private float[] _gasSpecificHeats = new float[Atmospherics.MaxNumberOfGases];
 
         /// <summary>
         ///     List of gas reactions ordered by priority.
@@ -42,16 +42,14 @@ namespace Content.Server.Atmos.EntitySystems
         /// </summary>
         public float[] GasSpecificHeats => _gasSpecificHeats;
 
-        public string?[] GasReagents = new string[Atmospherics.TotalNumberOfGases];
+        public string?[] GasReagents = new string[Atmospherics.MaxNumberOfGases];
 
         private void InitializeGases()
         {
             _gasReactions = _protoMan.EnumeratePrototypes<GasReactionPrototype>().ToArray();
             Array.Sort(_gasReactions, (a, b) => b.Priority.CompareTo(a.Priority));
 
-            Array.Resize(ref _gasSpecificHeats, MathHelper.NextMultipleOf(Atmospherics.TotalNumberOfGases, 4));
-
-            for (var i = 0; i < GasPrototypes.Length; i++)
+            for (var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
             {
                 _gasSpecificHeats[i] = GasPrototypes[i].SpecificHeat / HeatScale;
                 GasReagents[i] = GasPrototypes[i].Reagent;

@@ -37,7 +37,7 @@ namespace Content.IntegrationTests.Tests.Atmos
                 Assert.Multiple(() =>
                 {
                     Assert.That(atmosSystem.Gases.Count(), Is.EqualTo(Atmospherics.TotalNumberOfGases));
-                    Assert.That(Enum.GetValues(typeof(Gas)), Has.Length.EqualTo(Atmospherics.TotalNumberOfGases));
+                    Assert.That(Enum.GetValues(typeof(Gas)), Has.Length.LessThanOrEqualTo(Atmospherics.TotalNumberOfGases));
                 });
             });
             await pair.CleanReturnAsync();

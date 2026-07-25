@@ -13,6 +13,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using System.Linq;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Atmos.Prototypes;
 using Content.Shared.Body.Components;
@@ -28,7 +29,7 @@ namespace Content.Shared.Atmos.EntitySystems
 
         private EntityQuery<InternalsComponent> _internalsQuery;
 
-        protected readonly GasPrototype[] GasPrototypes = new GasPrototype[Atmospherics.TotalNumberOfGases];
+        protected readonly GasPrototype[] GasPrototypes = new GasPrototype[Atmospherics.MaxNumberOfGases];
 
         public override void Initialize()
         {
@@ -37,6 +38,13 @@ namespace Content.Shared.Atmos.EntitySystems
             _internalsQuery = GetEntityQuery<InternalsComponent>();
 
             InitializeBreathTool();
+
+            var gasCount = _prototypeManager.EnumeratePrototypes<GasPrototype>().Count();
+            if (gasCount > Atmospherics.MaxNumberOfGases)
+                throw new InvalidOperationException(
+                    $"{gasCount} GasPrototypes are defined, but Atmospherics.MaxNumberOfGases is only " +
+                    $"{Atmospherics.MaxNumberOfGases}. Increase MaxNumberOfGases in Atmospherics.cs.");
+            Atmospherics.TotalNumberOfGases = gasCount;
 
             for (var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
             {
@@ -48,6 +56,6 @@ namespace Content.Shared.Atmos.EntitySystems
 
         public GasPrototype GetGas(Gas gasId) => GasPrototypes[(int) gasId];
 
-        public IEnumerable<GasPrototype> Gases => GasPrototypes;
+        public IEnumerable<GasPrototype> Gases => GasPrototypes.Take(Atmospherics.TotalNumberOfGases);
     }
 }
