@@ -311,4 +311,5 @@ Resources/MapImages
 .direnv/
 
 config.json
-# .github/
+.github/
+.gitignore
